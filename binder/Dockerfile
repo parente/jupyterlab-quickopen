@@ -15,14 +15,9 @@ WORKDIR ${HOME}
 # Add project and demo dependencies
 RUN apt update \
     && apt install -y -q wamerican procps \
-    && pip install --no-cache jupyterlab-quickopen \
+    && pip install --no-cache 'jupyterlab-quickopen==1.2.0' \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# As of 2020-12-31, force binder to use jupyter-server instead of jupyter-notebook
-RUN cd $(dirname $(which jupyter-notebook)) \
-    && rm jupyter-notebook \
-    && ln -s jupyter-server jupyter-notebook
 
 # Add the entire source tree
 ADD . .
